@@ -66,6 +66,8 @@ body{
     transform: translate(-50%, -50%);
 }
 
+
+/* Card Styles */
 .big-card:nth-child(2){
     background-image: url(./Assets/big-card-4.gif);
     background-size: cover;
@@ -107,6 +109,7 @@ body{
     background-size: cover;
 }
 
+/* Card Group Styles on Hover*/
 .card-group:hover > .big-card:nth-child(2){
     transform: translate(-75%, 16%) rotate(-24deg);
 }
