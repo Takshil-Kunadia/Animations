@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
+    // Observe each card
     cards.forEach((card) => {
         intersectionObserver.observe(card);
     });
