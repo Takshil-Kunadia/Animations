@@ -1,7 +1,12 @@
+/**
+ * Intersection Observer
+ * It is used to observe the intersection changes between the target element and the parent element.
+ */
 document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".card");
-    // IntersectionObserver
-    // It is used to observe the intersection changes between the target element and the parent element.
+
+    // Create an intersection observer
+    // The callback function will be called whenever the target element intersects the parent element.
     const intersectionObserver = new IntersectionObserver(
         function (entries) {
             entries.forEach((entry) => {
