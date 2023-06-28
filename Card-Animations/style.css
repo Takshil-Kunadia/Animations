@@ -37,6 +37,7 @@ body{
     }
 }
 
+/* Card Group Styles */
 .card,
 .card-group{
     aspect-ratio: 5 / 7;
