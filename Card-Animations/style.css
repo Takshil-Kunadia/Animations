@@ -32,7 +32,7 @@ body{
         text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     }
     100%{
-        color: rgba(228, 28, 78, 0.8);
+        color: rgba(28, 65, 228, 0.8);
         text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
     }
 }
