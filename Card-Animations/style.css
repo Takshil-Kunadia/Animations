@@ -1,7 +1,7 @@
 /* Global Styles */
 body{
     margin: 0px;
-    background-color: black;
+    background-color: #000;
     height: 100vh;
     display: grid;
     place-items: center;
@@ -19,7 +19,7 @@ body{
     top        : 7%;
     font-family: 'Sakurata';
     font-size  : 10vmin;
-    color      : white;
+    color      : #fff;
     text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     margin     : 0px;
     animation  : animated-title 1s ease-in-out infinite alternate;
@@ -28,7 +28,7 @@ body{
 /* Keyframes */
 @keyframes animated-title{
     0%{
-        color: white;
+        color: #fff;
         text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
     }
     100%{
