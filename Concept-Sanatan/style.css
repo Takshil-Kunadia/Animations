@@ -15,8 +15,16 @@ body{
 
 video {
 	position: absolute;
-	min-width: 100%;
+	max-width: 100%;
+	aspect-ratio: 16 / 9;
 	z-index:-100;
+}
+
+@media screen and (max-width: 768px){
+	video{
+		max-width: none;
+		height: 100%;
+	}	
 }
 
 /* Animation Styles */
@@ -85,12 +93,13 @@ video {
 .big-card:nth-child(4){
 	background-image: url(./Assets/big-card-3.png);
 	background-size: cover;
-	transform: rotate(2deg);
+	transform: translateX(6%) rotate(2deg);
 }
 
 .big-card:nth-child(6){
 	background-image: url(./Assets/big-card-2.png);
 	background-size: cover;
+	background-position: -10%;
 	transform: translateX(6%) rotate(-3deg);
 }
 
