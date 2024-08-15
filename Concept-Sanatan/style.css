@@ -24,7 +24,7 @@ video {
 	position: absolute;
 	top: 7%;
 	font-family: 'Sakurata';
-	font-size: 10vmin;
+	font-size: clamp(2rem, 5vw, 5rem);
 	color: #fff;
 	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 	margin: 0px;
