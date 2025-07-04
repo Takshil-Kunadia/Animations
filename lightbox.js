@@ -294,13 +294,6 @@ class Lightbox {
 
 			// Add visual feedback
 			card.style.zIndex = '10';
-
-			// Auto-collapse after 4 seconds if no second touch
-			setTimeout(() => {
-				if (this.cardStates.get(cardId) && !this.isOpen) {
-					this.collapseCard(cardId, cardGroup);
-				}
-			}, 4000);
 		} else if (isExpanded) {
 			// Second touch on same card: Open lightbox
 			this.openLightbox(index);
