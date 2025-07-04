@@ -394,3 +394,75 @@
 		animation: none;
 	}
 }
+
+/* Swipe Indicators for Mobile */
+.lightbox-swipe-indicator {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 60px;
+	height: 60px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 50%;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	pointer-events: none;
+	z-index: 5;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.lightbox-swipe-indicator.left {
+	left: 20px;
+	animation: swipeHintLeft 2s ease-in-out infinite;
+}
+
+.lightbox-swipe-indicator.right {
+	right: 20px;
+	animation: swipeHintRight 2s ease-in-out infinite;
+}
+
+.lightbox-swipe-indicator svg {
+	width: 24px;
+	height: 24px;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+/* Show swipe indicators on mobile when lightbox is open */
+@media (max-width: 768px) and (hover: none) {
+	.lightbox.show .lightbox-swipe-indicator {
+		display: flex;
+		opacity: 0.6;
+		animation-delay: 1s;
+	}
+	
+	.lightbox.show .lightbox-swipe-indicator:hover {
+		opacity: 1;
+	}
+}
+
+/* Swipe hint animations */
+@keyframes swipeHintLeft {
+	0%, 100% {
+		transform: translateY(-50%) translateX(0);
+		opacity: 0.6;
+	}
+	50% {
+		transform: translateY(-50%) translateX(-10px);
+		opacity: 1;
+	}
+}
+
+@keyframes swipeHintRight {
+	0%, 100% {
+		transform: translateY(-50%) translateX(0);
+		opacity: 0.6;
+	}
+	50% {
+		transform: translateY(-50%) translateX(10px);
+		opacity: 1;
+	}
+}

@@ -17,7 +17,16 @@ class Lightbox {
 
 		// Mobile touch handling
 		this.isMobile = this.detectMobile();
+		console.log('Is mobile:', this.isMobile);
 		this.cardStates = new Map(); // Track hover/expanded state for each card
+
+		// Swipe handling for lightbox
+		this.swipeStartX = 0;
+		this.swipeStartY = 0;
+		this.swipeEndX = 0;
+		this.swipeEndY = 0;
+		this.minSwipeDistance = 50; // Minimum distance for a swipe
+		this.swipeThreshold = 30; // Maximum Y movement to still be considered horizontal swipe
 
 		this.init();
 	}
@@ -74,6 +83,19 @@ class Lightbox {
 							</svg>
 						</button>
 					</div>
+					
+					<!-- Swipe Indicators for Mobile -->
+					<div class="lightbox-swipe-indicator left">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="15,18 9,12 15,6"></polyline>
+						</svg>
+					</div>
+					<div class="lightbox-swipe-indicator right">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9,18 15,12 9,6"></polyline>
+						</svg>
+					</div>
+					
 					<div class="lightbox-counter">
 						<span class="current-image">1</span> / <span class="total-images">8</span>
 					</div>
@@ -170,6 +192,84 @@ class Lightbox {
 
 		// Prevent image click from closing lightbox
 		this.imageElement.addEventListener('click', (e) => e.stopPropagation());
+		
+		// Add swipe interactions for lightbox navigation
+		this.bindSwipeEvents();
+	}
+
+	/**
+	 * Bind swipe events for lightbox navigation
+	 */
+	bindSwipeEvents() {
+		if (!this.isMobile) return;
+		
+		// Add touch event listeners to the lightbox content
+		this.lightboxElement.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+		this.lightboxElement.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+		this.lightboxElement.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
+	}
+
+	/**
+	 * Handle touch start for swipe detection
+	 * @param {TouchEvent} e - Touch event
+	 */
+	handleTouchStart(e) {
+		if (!this.isOpen) return;
+		
+		const touch = e.touches[0];
+		this.swipeStartX = touch.clientX;
+		this.swipeStartY = touch.clientY;
+	}
+
+	/**
+	 * Handle touch move for swipe detection
+	 * @param {TouchEvent} e - Touch event
+	 */
+	handleTouchMove(e) {
+		if (!this.isOpen) return;
+		
+		// Prevent scrolling during swipe
+		const touch = e.touches[0];
+		const deltaX = Math.abs(touch.clientX - this.swipeStartX);
+		const deltaY = Math.abs(touch.clientY - this.swipeStartY);
+		
+		// If horizontal movement is greater than vertical, prevent default scrolling
+		if (deltaX > deltaY) {
+			e.preventDefault();
+		}
+	}
+
+	/**
+	 * Handle touch end for swipe detection
+	 * @param {TouchEvent} e - Touch event
+	 */
+	handleTouchEnd(e) {
+		if (!this.isOpen) return;
+		
+		const touch = e.changedTouches[0];
+		this.swipeEndX = touch.clientX;
+		this.swipeEndY = touch.clientY;
+		
+		this.handleSwipe();
+	}
+
+	/**
+	 * Process swipe gesture and navigate accordingly
+	 */
+	handleSwipe() {
+		const deltaX = this.swipeEndX - this.swipeStartX;
+		const deltaY = Math.abs(this.swipeEndY - this.swipeStartY);
+		
+		// Check if it's a valid horizontal swipe
+		if (Math.abs(deltaX) > this.minSwipeDistance && deltaY < this.swipeThreshold) {
+			if (deltaX > 0) {
+				// Swipe right - show previous image
+				this.showPrevious();
+			} else {
+				// Swipe left - show next image
+				this.showNext();
+			}
+		}
 	}
 
 	/**
@@ -186,6 +286,7 @@ class Lightbox {
 		const anyCardExpanded = Array.from(this.cardStates.values()).some(state => state);
 
 		if (!isExpanded && !anyCardExpanded) {
+
 			// First touch: Expand the card group (simulate hover)
 			cardGroup.classList.add('mobile-expanded');
 			this.cardStates.set(cardId, true);
