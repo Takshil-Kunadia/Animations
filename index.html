@@ -8,19 +8,61 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<video autoplay loop playsinline>
+	<!-- Entrance Screen -->
+	<div id="entrance-screen" class="entrance-screen">
+		<div class="entrance-content">
+			<h1 class="entrance-title">Enlightenment</h1>
+			<p class="entrance-subtitle">Experience the Journey</p>
+			<button id="enter-button" class="enter-button">
+				<span class="button-text">ॐ</span>
+				<div class="button-ripple"></div>
+			</button>
+		</div>
+		<div class="entrance-particles"></div>
+	</div>
+
+	<!-- Main Content (hidden initially) -->
+	<h1 id="animation-title">Enlightenment</h1>
+	<video id="bg-video" loop playsinline muted>
 		<source src="./Assets/bg-video.webm" type="video/webm" />
 	</video>
-	<h1 id="animation-title">Enlightenment</h1>
-	<div class="card-group">
-		<div class="little-card card"></div>
-		<div class="big-card card"></div>
-		<div class="little-card card"></div>
-		<div class="big-card card"></div>
-		<div class="little-card card"></div>
-		<div class="big-card card"></div> 
-		<div class="little-card card"></div>
-		<div class="big-card card"></div>
+	<div id="main-content" class="main-content hidden">
+		<div class="card-group">
+			<div class="little-card card"></div>
+			<div class="big-card card"></div>
+			<div class="little-card card"></div>
+			<div class="big-card card"></div>
+			<div class="little-card card"></div>
+			<div class="big-card card"></div> 
+			<div class="little-card card"></div>
+			<div class="big-card card"></div>
+		</div>
 	</div>
+
+	<script>
+		document.getElementById('enter-button').addEventListener('click', function() {
+			const entranceScreen = document.getElementById('entrance-screen');
+			const mainContent = document.getElementById('main-content');
+			const video = document.getElementById('bg-video');
+			
+			// Add exit animation to entrance screen
+			entranceScreen.classList.add('exit-animation');
+			
+			// After animation completes, switch to main content
+			setTimeout(() => {
+				entranceScreen.style.display = 'none';
+				mainContent.classList.remove('hidden');
+				mainContent.classList.add('enter-animation');
+				
+				// Start video with audio
+				video.muted = false;
+				video.play().catch(e => {
+					// Fallback: if unmuted autoplay fails, play muted
+					video.muted = true;
+					video.play();
+				});
+			}, 1000);
+		});
+	</script>
 </body>
 </html>

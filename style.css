@@ -17,7 +17,13 @@ video {
 	position: absolute;
 	max-width: 100%;
 	aspect-ratio: 16 / 9;
-	z-index:-100; 
+	z-index:-100;
+	opacity: 0;
+	transition: opacity 1.5s ease;
+}
+
+video.show {
+	opacity: 1;
 }
 
 @media screen and (max-width: 768px){
@@ -157,4 +163,203 @@ video {
 
 .card-group:hover > .little-card:nth-child(7){
 	transform: translate(-280%, 140%) rotate(-15deg);
+}
+
+/* Entrance Screen Styles */
+.entrance-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0c0c0c 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.entrance-content {
+	text-align: center;
+	z-index: 10;
+	opacity: 0;
+	transform: translateY(30px);
+	animation: fadeInUp 1.5s ease-out 0.5s forwards;
+}
+
+.entrance-title {
+	font-family: 'Sakurata';
+	font-size: clamp(3rem, 8vw, 8rem);
+	color: #fff;
+	margin: 0 0 1rem 0;
+	text-shadow: 0px 0px 30px rgba(255, 255, 255, 0.3);
+	letter-spacing: 0.1em;
+}
+
+.entrance-subtitle {
+	font-family: Arial, sans-serif;
+	font-size: clamp(1rem, 2vw, 1.5rem);
+	color: rgba(255, 255, 255, 0.7);
+	margin: 0 0 3rem 0;
+	font-weight: 300;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+}
+
+.enter-button {
+	position: relative;
+	background: linear-gradient(45deg, rgba(240, 103, 17, 0.8), rgba(255, 140, 60, 0.8));
+	border: 2px solid rgba(255, 255, 255, 0.3);
+	border-radius: 50px;
+	font-family: Arial, sans-serif;
+	font-size: 1.1rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	color: #fff;
+	cursor: pointer;
+	overflow: hidden;
+	transition: all 0.3s ease;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 10px 30px rgba(240, 103, 17, 0.3);
+}
+
+.enter-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 15px 40px rgba(240, 103, 17, 0.4);
+	border-color: rgba(255, 255, 255, 0.5);
+}
+
+.enter-button:active {
+	transform: translateY(0);
+}
+
+.button-text {
+	position: relative;
+	z-index: 2;
+}
+
+.button-ripple {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
+	transform: translate(-50%, -50%);
+	transition: width 0.6s, height 0.6s;
+}
+
+.enter-button:hover .button-ripple {
+	width: 300px;
+	height: 300px;
+}
+
+/* Animated Particles Background */
+.entrance-particles {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: 
+		radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
+		radial-gradient(2px 2px at 40px 70px, rgba(240, 103, 17, 0.2), transparent),
+		radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.1), transparent),
+		radial-gradient(1px 1px at 130px 80px, rgba(240, 103, 17, 0.1), transparent),
+		radial-gradient(2px 2px at 160px 30px, rgba(255, 255, 255, 0.1), transparent);
+	background-repeat: repeat;
+	background-size: 200px 200px;
+	animation: particleFloat 20s linear infinite;
+	opacity: 0.6;
+}
+
+/* Main Content Styles */
+.main-content {
+	transition: all 1s ease;
+}
+
+.main-content.hidden {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.main-content.enter-animation {
+	animation: mainContentEnter 1.5s ease-out forwards;
+}
+
+/* Keyframe Animations */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes particleFloat {
+	0% {
+		transform: translateY(0) translateX(0);
+	}
+	25% {
+		transform: translateY(-10px) translateX(5px);
+	}
+	50% {
+		transform: translateY(0) translateX(-5px);
+	}
+	75% {
+		transform: translateY(10px) translateX(5px);
+	}
+	100% {
+		transform: translateY(0) translateX(0);
+	}
+}
+
+@keyframes mainContentEnter {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* Exit Animation for Entrance Screen */
+.entrance-screen.exit-animation {
+	animation: entranceExit 1s ease-in forwards;
+}
+
+@keyframes entranceExit {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.1);
+		filter: blur(10px);
+	}
+}
+
+/* Responsive Design for Entrance Screen */
+@media screen and (max-width: 768px) {
+	.entrance-title {
+		font-size: clamp(2rem, 6vw, 4rem);
+	}
+	
+	.entrance-subtitle {
+		font-size: clamp(0.8rem, 1.5vw, 1rem);
+		margin: 0 0 2rem 0;
+	}
+	
+	.enter-button {
+		padding: 1rem 2.5rem;
+		font-size: 1rem;
+	}
 }
