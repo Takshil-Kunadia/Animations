@@ -162,7 +162,7 @@ class Lightbox {
 
 			if (this.isMobile) {
 				// Mobile: First touch expands, second touch opens lightbox
-				card.addEventListener('touchstart', (e) => {
+				card.addEventListener('click', (e) => {
 					e.preventDefault();
 					this.handleMobileTouch(card, index, cardGroup);
 				});
@@ -174,16 +174,6 @@ class Lightbox {
 				});
 			}
 		});
-
-		// Close expanded cards when clicking outside on mobile
-		if (this.isMobile) {
-			document.addEventListener('touchstart', (e) => {
-				const cardGroup = document.querySelector('.card-group');
-				if (cardGroup && !cardGroup.contains(e.target)) {
-					this.collapseAllCards();
-				}
-			});
-		}
 
 		// Lightbox controls
 		this.closeButton.addEventListener('click', () => this.closeLightbox());
