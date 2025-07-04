@@ -85,13 +85,15 @@ class Lightbox {
 					
 					<!-- Swipe Indicators for Mobile -->
 					<div class="lightbox-swipe-arrow left" aria-hidden="true">
-						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-							<polyline points="15,18 9,12 15,6"></polyline>
+						<svg width="32" height="32" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="2.5">
+							<polyline points="15,18 6,12 15,6"></polyline>
+							<line x1="6" y1="12" x2="26" y2="12"></line>
 						</svg>
 					</div>
 					<div class="lightbox-swipe-arrow right" aria-hidden="true">
-						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-							<polyline points="9,18 15,12 9,6"></polyline>
+						<svg width="32" height="32" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="2.5">
+							<polyline points="17,18 26,12 17,6"></polyline>
+							<line x1="26" y1="12" x2="6" y2="12"></line>
 						</svg>
 					</div>
 					
