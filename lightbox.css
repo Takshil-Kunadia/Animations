@@ -3,19 +3,55 @@
  * Beautiful, animated lightbox for displaying card images
  */
 
+/* CSS Custom Properties for Lightbox */
+:root {
+	/* Lightbox specific colors */
+	--lightbox-bg: rgba(0, 0, 0, 0.9);
+	--lightbox-control-bg: rgba(255, 255, 255, 0.1);
+	--lightbox-control-bg-hover: rgba(255, 255, 255, 0.2);
+	--lightbox-text-color: #fff;
+	--lightbox-border-color: rgba(255, 255, 255, 0.3);
+	
+	/* Lightbox dimensions */
+	--lightbox-max-width: 90vw;
+	--lightbox-max-height: 90vh;
+	--lightbox-image-max-width: 80vw;
+	--lightbox-image-max-height: 80vh;
+	
+	/* Lightbox controls */
+	--lightbox-button-size: 44px;
+	--lightbox-button-size-mobile: 50px;
+	--lightbox-button-size-small: 36px;
+	--lightbox-close-offset: -50px;
+	--lightbox-nav-offset: -60px;
+	
+	/* Lightbox transitions */
+	--lightbox-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	--lightbox-loader-transition: all 0.3s ease;
+	
+	/* Lightbox spacing */
+	--lightbox-counter-bottom: -50px;
+	--lightbox-counter-bottom-mobile: 10px;
+	--lightbox-swipe-offset: 30px;
+}
+
 /* Additional utility classes for JavaScript interactions */
 .lightbox-no-scroll {
 	overflow: hidden !important;
 }
 
-.lightbox-nav-hidden .lightbox-prev,
-.lightbox-nav-hidden .lightbox-next {
-	display: none !important;
+.lightbox-nav-hidden {
+	& .lightbox-prev,
+	& .lightbox-next {
+		display: none !important;
+	}
 }
 
-.lightbox-nav-visible .lightbox-prev,
-.lightbox-nav-visible .lightbox-next {
-	display: flex !important;
+.lightbox-nav-visible {
+	& .lightbox-prev,
+	& .lightbox-next {
+		display: flex !important;
+	}
 }
 
 /* Lightbox Container */
@@ -29,19 +65,23 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: 9999;
+	z-index: var(--z-lightbox);
 	opacity: 0;
 	visibility: hidden;
-	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.lightbox.active {
-	visibility: visible;
-}
-
-.lightbox.show {
-	opacity: 1;
-	background: rgba(0, 0, 0, 0.9);
+	transition: var(--lightbox-transition);
+	
+	&.active {
+		visibility: visible;
+	}
+	
+	&.show {
+		opacity: 1;
+		background: var(--lightbox-bg);
+		
+		& .lightbox-content {
+			transform: scale(1) translateY(0);
+		}
+	}
 }
 
 /* Lightbox Backdrop */
@@ -57,8 +97,8 @@
 /* Lightbox Content Container */
 .lightbox-content {
 	position: relative;
-	max-width: 90vw;
-	max-height: 90vh;
+	max-width: var(--lightbox-max-width);
+	max-height: var(--lightbox-max-height);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -66,43 +106,39 @@
 	transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.lightbox.show .lightbox-content {
-	transform: scale(1) translateY(0);
-}
-
 /* Image Container */
 .lightbox-image-container {
 	position: relative;
-	max-width: 80vw;
-	max-height: 80vh;
-	border-radius: 12px;
+	max-width: var(--lightbox-image-max-width);
+	max-height: var(--lightbox-image-max-height);
+	border-radius: var(--radius-lg);
 	overflow: hidden;
-	box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+	box-shadow: var(--shadow-lightbox);
 }
 
 .lightbox-image {
 	width: auto;
 	height: auto;
 	max-width: 100%;
-	max-height: 80vh;
-	border-radius: 12px;
+	max-height: var(--lightbox-image-max-height);
+	border-radius: var(--radius-lg);
 	opacity: 0;
 	transform: scale(0.95);
-	transition: all 0.3s ease;
-}
-
-.lightbox-image.loading {
-	opacity: 0;
-}
-
-.lightbox-image.loaded {
-	opacity: 1;
-	transform: scale(1);
-}
-
-.lightbox-image:not(.loading):not(.loaded) {
-	opacity: 1;
-	transform: scale(1);
+	transition: var(--lightbox-loader-transition);
+	
+	&.loading {
+		opacity: 0;
+	}
+	
+	&.loaded {
+		opacity: 1;
+		transform: scale(1);
+	}
+	
+	&:not(.loading):not(.loaded) {
+		opacity: 1;
+		transform: scale(1);
+	}
 }
 
 /* Loader */
@@ -114,17 +150,17 @@
 	width: 40px;
 	height: 40px;
 	border: 3px solid rgba(255, 255, 255, 0.3);
-	border-top: 3px solid #fff;
-	border-radius: 50%;
+	border-top: 3px solid var(--lightbox-text-color);
+	border-radius: var(--radius-circle);
 	animation: spin 1s linear infinite;
 	opacity: 0;
 	visibility: hidden;
-	transition: all 0.3s ease;
-}
-
-.lightbox-loader.active {
-	opacity: 1;
-	visibility: visible;
+	transition: var(--lightbox-loader-transition);
+	
+	&.active {
+		opacity: 1;
+		visibility: visible;
+	}
 }
 
 @keyframes spin {
@@ -135,35 +171,40 @@
 /* Close Button */
 .lightbox-close {
 	position: absolute;
-	top: -50px;
-	right: -50px;
-	width: 44px;
-	height: 44px;
-	background: rgba(255, 255, 255, 0.1);
+	top: var(--lightbox-close-offset);
+	right: var(--lightbox-close-offset);
+	width: var(--lightbox-button-size);
+	height: var(--lightbox-button-size);
+	background: var(--lightbox-control-bg);
 	border: none;
-	border-radius: 50%;
-	color: #fff;
+	border-radius: var(--radius-circle);
+	color: var(--lightbox-text-color);
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: all 0.3s ease;
-	z-index: 10;
+	transition: var(--lightbox-loader-transition);
+	z-index: var(--z-elevated);
 	backdrop-filter: blur(10px);
-}
-
-.lightbox-close:hover {
-	background: rgba(255, 255, 255, 0.2);
-	transform: scale(1.1);
-}
-
-.lightbox-close:active {
-	transform: scale(0.95);
-}
-
-.lightbox-close svg {
-	width: 20px;
-	height: 20px;
+	
+	& svg {
+		width: 20px;
+		height: 20px;
+	}
+	
+	&:hover {
+		background: var(--lightbox-control-bg-hover);
+		transform: scale(1.1);
+	}
+	
+	&:active {
+		transform: scale(0.95);
+	}
+	
+	&:focus {
+		outline: 2px solid var(--lightbox-border-color);
+		outline-offset: 2px;
+	}
 }
 
 /* Navigation Buttons */
@@ -176,125 +217,116 @@
 	display: flex;
 	justify-content: space-between;
 	pointer-events: none;
-	z-index: 10;
+	z-index: var(--z-elevated);
 }
 
 .lightbox-prev,
 .lightbox-next {
-	width: 44px;
-	height: 44px;
-	background: rgba(255, 255, 255, 0.1);
+	width: var(--lightbox-button-size);
+	height: var(--lightbox-button-size);
+	background: var(--lightbox-control-bg);
 	border: none;
-	border-radius: 50%;
-	color: #fff;
+	border-radius: var(--radius-circle);
+	color: var(--lightbox-text-color);
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: all 0.3s ease;
+	transition: var(--lightbox-loader-transition);
 	pointer-events: auto;
 	backdrop-filter: blur(10px);
 	opacity: 0.7;
+	
+	& svg {
+		width: 20px;
+		height: 20px;
+	}
+	
+	&:hover {
+		background: var(--lightbox-control-bg-hover);
+		opacity: 1;
+		transform: scale(1.1);
+	}
+	
+	&:active {
+		transform: scale(0.95);
+	}
+	
+	&:focus {
+		outline: 2px solid var(--lightbox-border-color);
+		outline-offset: 2px;
+	}
 }
 
 .lightbox-prev {
-	transform: translateX(-60px);
+	transform: translateX(var(--lightbox-nav-offset));
+	
+	&:hover {
+		transform: translateX(var(--lightbox-nav-offset)) scale(1.1);
+	}
+	
+	&:active {
+		transform: translateX(var(--lightbox-nav-offset)) scale(0.95);
+	}
 }
 
 .lightbox-next {
-	transform: translateX(60px);
-}
-
-.lightbox-prev:hover,
-.lightbox-next:hover {
-	background: rgba(255, 255, 255, 0.2);
-	opacity: 1;
-	transform: translateX(-60px) scale(1.1);
-}
-
-.lightbox-next:hover {
-	transform: translateX(60px) scale(1.1);
-}
-
-.lightbox-prev:active,
-.lightbox-next:active {
-	transform: translateX(-60px) scale(0.95);
-}
-
-.lightbox-next:active {
-	transform: translateX(60px) scale(0.95);
-}
-
-.lightbox-prev svg,
-.lightbox-next svg {
-	width: 20px;
-	height: 20px;
+	transform: translateX(calc(-1 * var(--lightbox-nav-offset)));
+	
+	&:hover {
+		transform: translateX(calc(-1 * var(--lightbox-nav-offset))) scale(1.1);
+	}
+	
+	&:active {
+		transform: translateX(calc(-1 * var(--lightbox-nav-offset))) scale(0.95);
+	}
 }
 
 /* Counter */
 .lightbox-counter {
 	position: absolute;
-	bottom: -50px;
+	bottom: var(--lightbox-counter-bottom);
 	left: 50%;
 	transform: translateX(-50%);
-	color: #fff;
+	color: var(--lightbox-text-color);
 	font-family: 'Sakurata', sans-serif;
 	font-size: 14px;
-	background: rgba(255, 255, 255, 0.1);
+	background: var(--lightbox-control-bg);
 	padding: 8px 16px;
-	border-radius: 20px;
+	border-radius: var(--radius-xl);
 	backdrop-filter: blur(10px);
 	white-space: nowrap;
 }
 
-/* Mobile Touch Styles - Card Expansion */
-.mobile-expanded > .big-card:nth-child(2){
-	transform: translate(-85%, 16%) rotate(-24deg) scaleX(-1) !important;
-}
-
-.mobile-expanded > .big-card:nth-child(4){
-	transform: translate(-30%, 8%) rotate(-8deg) !important;
-}
-
-.mobile-expanded > .big-card:nth-child(6){
-	transform: translate(30%, 8%) rotate(8deg) !important;
-}
-
-.mobile-expanded > .big-card:nth-child(8){
-	transform: translate(85%, 16%) rotate(24deg) !important;
-}
-
-.mobile-expanded > .little-card:nth-child(1){
-	transform: translate(280%, -140%) rotate(-15deg) !important;
-}
-
-.mobile-expanded > .little-card:nth-child(3){
-	transform: translate(280%, 140%) rotate(15deg) !important;
-}
-
-.mobile-expanded > .little-card:nth-child(5){
-	transform: translate(-280%, -140%) rotate(15deg) !important;
-}
-
-.mobile-expanded > .little-card:nth-child(7){
-	transform: translate(-280%, 140%) rotate(-15deg) !important;
-}
-
-/* Ensure mobile transitions are smooth */
-@media (max-width: 768px) {
-	.card {
-		transition: transform 600ms cubic-bezier(0.05, 0.43, 0.25, 0.95);
+/* Swipe Arrow Indicators for Mobile */
+.lightbox-swipe-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	z-index: 5;
+	opacity: 0;
+	transition: opacity 0.4s ease;
+	
+	& svg {
+		filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+		color: rgba(255, 255, 255, 0.9);
 	}
-
-	/* Add visual feedback for mobile touches */
-	.card:active {
-		transform: scale(0.98);
-		transition: transform 150ms ease-out;
+	
+	&.left {
+		left: var(--lightbox-swipe-offset);
 	}
-
-	/* Expand animation for mobile */
-	.mobile-expanded .card {
-		transition: transform 600ms cubic-bezier(0.05, 0.43, 0.25, 0.95);
+	
+	&.right {
+		right: var(--lightbox-swipe-offset);
+	}
+	
+	&.visible {
+		opacity: 1;
+		animation: swipeArrowPulse 0.8s ease-in-out infinite alternate;
 	}
 }
 
@@ -312,25 +344,36 @@
 	}
 
 	.lightbox-nav button {
-		width: 50px;
-		height: 50px;
-	}
-
-	.lightbox-nav button svg {
-		width: 20px;
-		height: 20px;
+		width: var(--lightbox-button-size-mobile);
+		height: var(--lightbox-button-size-mobile);
+		
+		& svg {
+			width: 20px;
+			height: 20px;
+		}
 	}
 
 	.lightbox-close {
 		top: 10px;
 		right: 10px;
-		width: 50px;
-		height: 50px;
+		width: var(--lightbox-button-size-mobile);
+		height: var(--lightbox-button-size-mobile);
 	}
 
 	.lightbox-counter {
-		bottom: 10px;
+		bottom: var(--lightbox-counter-bottom-mobile);
 		font-size: 14px;
+	}
+	
+	/* Add visual feedback for mobile touches */
+	.card:active {
+		transform: scale(0.98);
+		transition: transform var(--transition-fast);
+	}
+
+	/* Expand animation for mobile */
+	.mobile-expanded .card {
+		transition: transform var(--transition-slow);
 	}
 }
 
@@ -347,25 +390,24 @@
 	.lightbox-close {
 		top: -35px;
 		right: 0;
-		width: 36px;
-		height: 36px;
-	}
-
-	.lightbox-close svg {
-		width: 18px;
-		height: 18px;
+		width: var(--lightbox-button-size-small);
+		height: var(--lightbox-button-size-small);
+		
+		& svg {
+			width: 18px;
+			height: 18px;
+		}
 	}
 
 	.lightbox-prev,
 	.lightbox-next {
-		width: 36px;
-		height: 36px;
-	}
-
-	.lightbox-prev svg,
-	.lightbox-next svg {
-		width: 18px;
-		height: 18px;
+		width: var(--lightbox-button-size-small);
+		height: var(--lightbox-button-size-small);
+		
+		& svg {
+			width: 18px;
+			height: 18px;
+		}
 	}
 }
 
@@ -379,13 +421,58 @@
 	.lightbox-next {
 		display: none !important;
 	}
+	
+	/* Show swipe arrows on mobile devices only */
+	.lightbox-swipe-arrow {
+		display: flex;
+	}
+}
+
+/* Mobile Touch Styles - Card Expansion */
+.mobile-expanded {
+	& > .big-card:nth-child(2) {
+		transform: translate(-85%, 16%) rotate(-24deg) scaleX(-1) !important;
+	}
+
+	& > .big-card:nth-child(4) {
+		transform: translate(-30%, 8%) rotate(-8deg) !important;
+	}
+
+	& > .big-card:nth-child(6) {
+		transform: translate(30%, 8%) rotate(8deg) !important;
+	}
+
+	& > .big-card:nth-child(8) {
+		transform: translate(85%, 16%) rotate(24deg) !important;
+	}
+
+	& > .little-card:nth-child(1) {
+		transform: translate(280%, -140%) rotate(-15deg) !important;
+	}
+
+	& > .little-card:nth-child(3) {
+		transform: translate(280%, 140%) rotate(15deg) !important;
+	}
+
+	& > .little-card:nth-child(5) {
+		transform: translate(-280%, -140%) rotate(15deg) !important;
+	}
+
+	& > .little-card:nth-child(7) {
+		transform: translate(-280%, 140%) rotate(-15deg) !important;
+	}
+}
+
+/* Ensure mobile transitions are smooth */
+@media (max-width: 768px) {
+	.card {
+		transition: transform var(--transition-slow);
+	}
 }
 
 /* Focus and Accessibility */
-.lightbox-close:focus,
-.lightbox-prev:focus,
-.lightbox-next:focus {
-	outline: 2px solid rgba(255, 255, 255, 0.5);
+.lightbox *:focus-visible {
+	outline: 2px solid var(--lightbox-border-color);
 	outline-offset: 2px;
 }
 
@@ -411,45 +498,6 @@
 
 	.lightbox-loader {
 		animation: none;
-	}
-}
-
-/* Swipe Arrow Indicators for Mobile */
-.lightbox-swipe-arrow {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	display: none;
-	align-items: center;
-	justify-content: center;
-	pointer-events: none;
-	z-index: 5;
-	opacity: 0;
-	transition: opacity 0.4s ease;
-}
-
-.lightbox-swipe-arrow.left {
-	left: 30px;
-}
-
-.lightbox-swipe-arrow.right {
-	right: 30px;
-}
-
-.lightbox-swipe-arrow svg {
-	filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-	color: rgba(255, 255, 255, 0.9);
-}
-
-.lightbox-swipe-arrow.visible {
-	opacity: 1;
-	animation: swipeArrowPulse 0.8s ease-in-out infinite alternate;
-}
-
-/* Show swipe arrows on mobile devices only */
-@media (max-width: 768px) and (hover: none) {
-	.lightbox-swipe-arrow {
-		display: flex;
 	}
 }
 
