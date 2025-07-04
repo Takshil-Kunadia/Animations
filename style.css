@@ -399,6 +399,7 @@ video {
 	border-radius: var(--radius-circle);
 	width: var(--button-size);
 	height: var(--button-size);
+	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
@@ -422,17 +423,34 @@ video {
 		buttonFloat 4s ease-in-out infinite,
 		redSwastikGlow 2.5s ease-in-out infinite alternate;
 
-	& img {
+	/* Symbol styling - Default swastik and hover Om */
+	& .swastik-symbol,
+	& .om-symbol {
 		width: var(--button-icon-size);
 		height: var(--button-icon-size);
+		position: absolute;
+		transform: translate(-50%, -50%);
+		transition: all var(--transition-button);
+		z-index: 2;
+	}
+
+	& .swastik-symbol {
 		filter:
 			drop-shadow(0 0 10px var(--color-button-glow-hover))
 			drop-shadow(0 0 20px var(--color-button-glow))
 			drop-shadow(0 0 30px var(--color-button-red-accent));
-		transition: all var(--transition-button);
-		position: relative;
-		z-index: 2;
+		opacity: 1;
 		animation: omRotate 20s linear infinite;
+	}
+
+	& .om-symbol {
+		filter:
+			drop-shadow(0 0 15px var(--color-button-glow-active))
+			drop-shadow(0 0 30px var(--color-button-red-primary))
+			drop-shadow(0 0 45px var(--color-button-red-accent));
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.8) rotate(180deg);
+		animation: omRotate 15s linear infinite reverse;
 	}
 
 	&:hover {
@@ -449,13 +467,25 @@ video {
 			transparent 100%
 		);
 
-		& img {
-			transform: scale(1.1) rotate(5deg);
+		& .swastik-symbol {
+			opacity: 0;
+			transform: translate(-50%, -50%) scale(0.8) rotate(-180deg);
+			filter: 
+				drop-shadow(0 0 10px var(--color-button-glow))
+				drop-shadow(0 0 20px var(--color-button-red-secondary))
+				brightness(0.8);
+			animation-play-state: paused;
+		}
+
+		& .om-symbol {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
 			filter: 
 				drop-shadow(0 0 15px var(--color-button-glow-active))
 				drop-shadow(0 0 30px var(--color-button-glow-hover))
 				drop-shadow(0 0 45px var(--color-button-glow))
 				brightness(1.2);
+			animation-play-state: running;
 		}
 
 		& .button-ripple {
@@ -481,13 +511,19 @@ video {
 			inset 0 0 20px rgba(255, 255, 255, 0.3),
 			inset 0 0 30px rgba(220, 38, 38, 0.2);
 		
-		/* Enhance the red glow on the logo itself */
-		& img {
+		/* Enhance the red glow on both symbols */
+		& .swastik-symbol,
+		& .om-symbol {
 			filter: 
 				drop-shadow(0 0 20px var(--color-button-glow-active))
 				drop-shadow(0 0 40px var(--color-button-red-primary))
 				drop-shadow(0 0 60px var(--color-button-red-accent))
 				brightness(1.3) saturate(1.3);
+		}
+
+		& .om-symbol {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
 		}
 	}
 }
@@ -699,6 +735,29 @@ video {
 			0 0 30px var(--color-button-red-primary),
 			0 0 60px var(--color-button-red-accent),
 			inset 0 0 20px rgba(220, 38, 38, 0.2);
+	}
+}
+
+/* Symbol transition animation */
+@keyframes symbolFadeIn {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.5) rotate(90deg);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1) rotate(0deg);
+	}
+}
+
+@keyframes symbolFadeOut {
+	0% {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1) rotate(0deg);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.5) rotate(-90deg);
 	}
 }
 
