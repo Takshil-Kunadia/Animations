@@ -3,6 +3,21 @@
  * Beautiful, animated lightbox for displaying card images
  */
 
+/* Additional utility classes for JavaScript interactions */
+.lightbox-no-scroll {
+	overflow: hidden !important;
+}
+
+.lightbox-nav-hidden .lightbox-prev,
+.lightbox-nav-hidden .lightbox-next {
+	display: none !important;
+}
+
+.lightbox-nav-visible .lightbox-prev,
+.lightbox-nav-visible .lightbox-next {
+	display: flex !important;
+}
+
 /* Lightbox Container */
 .lightbox {
 	position: fixed;

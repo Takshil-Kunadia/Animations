@@ -158,7 +158,7 @@ class Lightbox {
 		const cardGroup = document.querySelector('.card-group');
 
 		cards.forEach((card, index) => {
-			card.style.cursor = 'pointer';
+			card.classList.add('card-clickable');
 
 			if (this.isMobile) {
 				// Mobile: First touch expands, second touch opens lightbox
@@ -293,7 +293,7 @@ class Lightbox {
 			this.cardStates.set(cardId, true);
 
 			// Add visual feedback
-			card.style.zIndex = '10';
+			card.classList.add('card-elevated');
 
 			// Auto-collapse after 4 seconds if no second touch
 			setTimeout(() => {
@@ -310,7 +310,7 @@ class Lightbox {
 			this.collapseAllCards();
 			cardGroup.classList.add('mobile-expanded');
 			this.cardStates.set(cardId, true);
-			card.style.zIndex = '10';
+			card.classList.add('card-elevated');
 		}
 	}
 
@@ -323,10 +323,10 @@ class Lightbox {
 		cardGroup.classList.remove('mobile-expanded');
 		this.cardStates.set(cardId, false);
 
-		// Reset z-index for all cards
+		// Reset elevation for all cards
 		const cards = document.querySelectorAll('.card');
 		cards.forEach(card => {
-			card.style.zIndex = '';
+			card.classList.remove('card-elevated');
 		});
 	}
 
@@ -339,11 +339,11 @@ class Lightbox {
 			cardGroup.classList.remove('mobile-expanded');
 		}
 
-		// Reset all card states and z-index
+		// Reset all card states and elevation
 		this.cardStates.clear();
 		const cards = document.querySelectorAll('.card');
 		cards.forEach(card => {
-			card.style.zIndex = '';
+			card.classList.remove('card-elevated');
 		});
 	}
 
@@ -379,7 +379,7 @@ class Lightbox {
 		this.isOpen = true;
 
 		// Disable body scroll
-		document.body.style.overflow = 'hidden';
+		document.body.classList.add('lightbox-no-scroll');
 
 		// Show lightbox
 		this.lightboxElement.classList.add('active');
@@ -436,7 +436,7 @@ class Lightbox {
 		// After animation completes, hide lightbox
 		setTimeout(() => {
 			this.lightboxElement.classList.remove('active');
-			document.body.style.overflow = '';
+			document.body.classList.remove('lightbox-no-scroll');
 		}, 300);
 	}
 
@@ -517,14 +517,15 @@ class Lightbox {
 	 * Update navigation button visibility
 	 */
 	updateNavigation() {
+		// Remove existing navigation classes
+		this.lightboxElement.classList.remove('lightbox-nav-hidden', 'lightbox-nav-visible');
+		
 		if (this.images.length <= 1 || this.isMobile) {
 			// Hide buttons if there's only one image or on mobile devices
-			this.prevButton.style.display = 'none';
-			this.nextButton.style.display = 'none';
+			this.lightboxElement.classList.add('lightbox-nav-hidden');
 		} else {
 			// Show buttons on desktop with multiple images
-			this.prevButton.style.display = 'flex';
-			this.nextButton.style.display = 'flex';
+			this.lightboxElement.classList.add('lightbox-nav-visible');
 		}
 	}
 

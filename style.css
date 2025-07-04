@@ -246,6 +246,15 @@ video.show {
 		inset 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
+/* Card interaction utility classes */
+.card-clickable {
+	cursor: pointer;
+}
+
+.card-elevated {
+	z-index: 10;
+}
+
 /* Entrance Screen Styles */
 .entrance-screen {
 	position: fixed;
