@@ -1,10 +1,20 @@
 /* Global Styles */
 body{
 	margin: 0px;
+	padding: 0px;
 	background-color: #000;
 	height: 100vh;
+	min-height: 100vh;
+	/* Safari fallback for centering */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* Modern browsers with CSS Grid */
 	display: grid;
 	place-items: center;
+	/* Handle Safari viewport issues */
+	position: relative;
+	overflow-x: hidden;
 }
 
 /* Font Styles */
@@ -16,6 +26,34 @@ body{
 @font-face {
 	font-family: 'Chanakya';
 	src: url('./Assets/Chanakya Regular.ttf') format('truetype');
+}
+
+/* Safari and iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+	body {
+		height: -webkit-fill-available;
+		min-height: -webkit-fill-available;
+	}
+}
+
+/* iOS Safari viewport fix */
+@media screen and (max-width: 768px) {
+	body {
+		height: 100dvh; /* Dynamic viewport height for modern browsers */
+		min-height: 100vh;
+		min-height: -webkit-fill-available;
+	}
+	
+	/* Ensure main content is properly centered on mobile */
+	#main-content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100vw;
+		height: 100vh;
+		height: 100dvh;
+		position: relative;
+	}
 }
 
 video {
@@ -74,6 +112,8 @@ video.show {
 /* Card Group Styles */
 .card-group{
 	aspect-ratio: 5 / 7;
+	position: relative;
+	margin: auto;
 }
 
 .card-group,
@@ -186,12 +226,16 @@ video.show {
 	left: 0;
 	width: 100vw;
 	height: 100vh;
+	height: 100dvh; /* Dynamic viewport height for modern browsers */
 	background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0c0c0c 100%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	z-index: 1000;
 	overflow: hidden;
+	/* Safari specific fixes */
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
 }
 
 .entrance-content {
@@ -230,7 +274,6 @@ video.show {
 	border-radius: 50%;
 	width: 120px;
 	height: 120px;
-	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
@@ -451,6 +494,37 @@ video.show {
 	.entrance-subtitle {
 		font-size: clamp(0.8rem, 1.5vw, 1rem);
 		margin: 0 0 2rem 0;
+	}
+
+	/* Additional Safari iOS fixes */
+	.entrance-screen {
+		height: 100vh;
+		height: -webkit-fill-available;
+		height: 100dvh;
+	}
+
+	.entrance-content {
+		width: 90vw;
+		max-width: 400px;
+		padding: 2rem 1rem;
+	}
+}
+
+/* Additional Safari-specific fixes */
+@media screen and (max-device-width: 896px) and (-webkit-device-pixel-ratio: 2) {
+	body {
+		height: 100vh;
+		height: -webkit-fill-available;
+	}
+
+	.entrance-screen {
+		height: 100vh;
+		height: -webkit-fill-available;
+	}
+
+	#main-content {
+		height: 100vh;
+		height: -webkit-fill-available;
 	}
 }
 
