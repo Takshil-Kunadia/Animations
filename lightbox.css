@@ -12,6 +12,11 @@
 	--lightbox-text-color: #fff;
 	--lightbox-border-color: rgba(255, 255, 255, 0.3);
 	
+	/* Additional lightbox colors for consistency */
+	--lightbox-transparent: rgba(0, 0, 0, 0);
+	--lightbox-shadow: rgba(0, 0, 0, 0.3);
+	--lightbox-text-semitransparent: rgba(255, 255, 255, 0.9);
+	
 	/* Lightbox dimensions */
 	--lightbox-max-width: 90vw;
 	--lightbox-max-height: 90vh;
@@ -61,7 +66,7 @@
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background: rgba(0, 0, 0, 0);
+	background: var(--lightbox-transparent);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -149,7 +154,7 @@
 	transform: translate(-50%, -50%);
 	width: 40px;
 	height: 40px;
-	border: 3px solid rgba(255, 255, 255, 0.3);
+	border: 3px solid var(--lightbox-border-color);
 	border-top: 3px solid var(--lightbox-text-color);
 	border-radius: var(--radius-circle);
 	animation: spin 1s linear infinite;
@@ -312,8 +317,8 @@
 	transition: opacity 0.4s ease;
 	
 	& svg {
-		filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-		color: rgba(255, 255, 255, 0.9);
+		filter: drop-shadow(0 2px 8px var(--lightbox-shadow));
+		color: var(--lightbox-text-semitransparent);
 	}
 	
 	&.left {

@@ -1,7 +1,32 @@
 :root {
-	/* Colors */
+	/* Base Colors */
 	--color-primary: #000;
 	--color-white: #fff;
+	
+	/* Red Color Palette */
+	--color-red-50: rgba(255, 245, 245, 1);
+	--color-red-100: rgba(254, 226, 226, 1);
+	--color-red-200: rgba(252, 165, 165, 1);
+	--color-red-300: rgba(248, 113, 113, 1);
+	--color-red-400: rgba(239, 68, 68, 1);
+	--color-red-500: rgba(220, 38, 38, 1);
+	--color-red-600: rgba(185, 28, 28, 1);
+	--color-red-700: rgba(153, 27, 27, 1);
+	--color-red-800: rgba(127, 29, 29, 1);
+	--color-red-900: rgba(105, 24, 24, 1);
+
+	/* Orange Color Palette */
+	--color-orange-400: rgba(251, 146, 60, 1);
+	--color-orange-500: rgba(249, 115, 22, 1);
+	--color-orange-600: rgba(234, 88, 12, 1);
+	--color-orange-700: rgba(194, 65, 12, 1);
+
+	/* Yellow Color Palette */
+	--color-yellow-300: rgba(253, 224, 71, 1);
+	--color-yellow-400: rgba(250, 204, 21, 1);
+	--color-yellow-500: rgba(234, 179, 8, 1);
+
+	/* Accent Colors - Legacy support */
 	--color-accent: rgba(240, 103, 17, 0.8);
 	--color-accent-alt: rgba(255, 193, 7, 0.4);
 	--color-accent-secondary: rgba(255, 152, 0, 0.15);
@@ -15,15 +40,44 @@
 	--color-button-red-secondary: rgba(185, 28, 28, 0.7);
 	--color-button-red-accent: rgba(255, 87, 87, 0.5);
 
+	/* Alpha Variants for Red Colors */
+	--color-red-500-10: rgba(220, 38, 38, 0.1);
+	--color-red-500-15: rgba(220, 38, 38, 0.15);
+	--color-red-500-20: rgba(220, 38, 38, 0.2);
+	--color-red-500-30: rgba(220, 38, 38, 0.3);
+	--color-red-500-40: rgba(220, 38, 38, 0.4);
+	--color-red-500-50: rgba(220, 38, 38, 0.5);
+
+	--color-red-600-10: rgba(185, 28, 28, 0.1);
+	--color-red-600-15: rgba(185, 28, 28, 0.15);
+	--color-red-600-20: rgba(185, 28, 28, 0.2);
+	--color-red-600-25: rgba(185, 28, 28, 0.25);
+
+	--color-red-700-10: rgba(153, 27, 27, 0.1);
+	--color-red-700-20: rgba(153, 27, 27, 0.2);
+
+	/* White Alpha Variants */
+	--color-white-10: rgba(255, 255, 255, 0.1);
+	--color-white-15: rgba(255, 255, 255, 0.15);
+	--color-white-20: rgba(255, 255, 255, 0.2);
+	--color-white-30: rgba(255, 255, 255, 0.3);
+	--color-white-50: rgba(255, 255, 255, 0.5);
+	--color-white-80: rgba(255, 255, 255, 0.8);
+	--color-white-08: rgba(255, 255, 255, 0.08);
+
 	/* Card glow colors */
-	--color-glow-primary: rgba(255, 255, 255, 0.1);
+	--color-glow-primary: var(--color-white-10);
 	--color-glow-secondary: rgba(240, 103, 17, 0.05);
 	--color-glow-enhanced: rgba(255, 193, 7, 0.1);
 
 	/* Backgrounds */
-	--bg-card: rgba(255, 255, 255, 0.1);
-	--bg-lightbox: rgba(255, 255, 255, 0.1);
+	--bg-card: var(--color-white-10);
+	--bg-lightbox: var(--color-white-10);
 	--bg-backdrop: rgba(0, 0, 0, 0.9);
+
+	/* Dark Backgrounds */
+	--bg-dark-100: #1a1a1a;
+	--bg-dark-200: #0c0c0c;
 
 	/* Spacing */
 	--spacing-xs: 0.25rem;
@@ -53,7 +107,7 @@
 	--shadow-card: 0 0 15px var(--color-glow-primary),
 				   0 0 30px var(--color-glow-secondary),
 				   inset 0 0 20px var(--color-glow-primary);
-	--shadow-card-enhanced: 0 0 25px rgba(255, 255, 255, 0.2),
+	--shadow-card-enhanced: 0 0 25px var(--color-white-20),
 							0 0 50px rgba(240, 103, 17, 0.15),
 							0 0 75px var(--color-glow-enhanced),
 							inset 0 0 30px var(--color-glow-primary);
@@ -61,16 +115,16 @@
 
 	/* Button shadows */
 	--shadow-button-base: 0 0 20px var(--color-button-glow),
-						  0 0 40px rgba(255, 193, 7, 0.3),
-						  0 0 60px rgba(255, 193, 7, 0.2),
-						  0 0 80px rgba(255, 193, 7, 0.1),
-						  inset 0 0 20px rgba(255, 255, 255, 0.1);
+						  0 0 40px var(--color-yellow-400),
+						  0 0 60px var(--color-yellow-400),
+						  0 0 80px var(--color-yellow-500),
+						  inset 0 0 20px var(--color-white-10);
 	--shadow-button-hover: 0 0 30px var(--color-button-glow-hover),
-						   0 0 60px rgba(255, 193, 7, 0.5),
+						   0 0 60px var(--color-yellow-400),
 						   0 0 90px var(--color-button-glow),
-						   0 0 120px rgba(255, 193, 7, 0.3),
-						   0 0 150px rgba(255, 193, 7, 0.2),
-						   inset 0 0 30px rgba(255, 255, 255, 0.2);
+						   0 0 120px var(--color-yellow-400),
+						   0 0 150px var(--color-yellow-500),
+						   inset 0 0 30px var(--color-white-20);
 
 	/* Z-index layers */
 	--z-background: -100;
@@ -185,7 +239,7 @@ video {
 	font-family: 'Sakurata';
 	font-size: clamp(2rem, 5vw, 5rem);
 	color: var(--color-white);
-	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+	text-shadow: 0px 0px 10px var(--color-white-50);
 	margin: 0;
 	opacity: 0;
 	transform: translateY(-20px);
@@ -202,11 +256,11 @@ video {
 @keyframes animated-title {
 	0% {
 		color: var(--color-white);
-		text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+		text-shadow: 0px 0px 10px var(--color-white-50);
 	}
 	100% {
 		color: var(--color-accent);
-		text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+		text-shadow: 0px 0px 10px var(--color-white-80);
 	}
 }
 
@@ -349,7 +403,7 @@ video {
 	width: 100vw;
 	height: var(--vh-fallback);
 	height: var(--vh-dynamic);
-	background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0c0c0c 100%);
+	background: linear-gradient(135deg, var(--bg-dark-200) 0%, var(--bg-dark-100) 50%, var(--bg-dark-200) 100%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -377,7 +431,7 @@ video {
 	font-size: clamp(3rem, 8vw, 8rem);
 	color: var(--color-white);
 	margin: 0 0 var(--spacing-md) 0;
-	text-shadow: 0px 0px 30px rgba(255, 255, 255, 0.3);
+	text-shadow: 0px 0px 30px var(--color-white-30);
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 }
@@ -385,7 +439,7 @@ video {
 .entrance-subtitle {
 	font-family: 'Chanakya', Arial, sans-serif;
 	font-size: clamp(1.2rem, 2.5vw, 2rem);
-	color: rgba(255, 255, 255, 0.8);
+	color: var(--color-white-80);
 	margin: 0 0 var(--spacing-xxl) 0;
 	font-weight: normal;
 	letter-spacing: 0.1em;
@@ -411,13 +465,12 @@ video {
 	/* Animated background gradient - Red theme */
 	background: radial-gradient(
 		circle at center,
-		rgba(220, 38, 38, 0.2) 0%,
-		rgba(185, 28, 28, 0.15) 30%,
-		rgba(153, 27, 27, 0.1) 60%,
+		var(--color-red-500-20) 0%,
+		var(--color-red-600-15) 30%,
+		var(--color-red-700-10) 60%,
 		transparent 80%
 	);
 
-	/* Apply continuous animations - Enhanced for red swastik */
 	animation: 
 		glowPulse 3s ease-in-out infinite,
 		buttonFloat 4s ease-in-out infinite,
@@ -460,9 +513,9 @@ video {
 		/* Enhanced background on hover - Red theme */
 		background: radial-gradient(
 			circle at center,
-			rgba(220, 38, 38, 0.3) 0%,
-			rgba(185, 28, 28, 0.25) 30%,
-			rgba(153, 27, 27, 0.2) 60%,
+			var(--color-red-500-30) 0%,
+			var(--color-red-600-25) 30%,
+			var(--color-red-700-20) 60%,
 			var(--color-button-red-accent) 80%,
 			transparent 100%
 		);
@@ -503,15 +556,13 @@ video {
 	&:active {
 		transform: translateY(-2px) scale(0.98);
 
-		/* Pulse effect on click - Enhanced red theme */
 		box-shadow: 
 			0 0 40px var(--color-button-glow-active),
 			0 0 80px var(--color-button-red-primary),
 			0 0 120px var(--color-button-red-secondary),
-			inset 0 0 20px rgba(255, 255, 255, 0.3),
-			inset 0 0 30px rgba(220, 38, 38, 0.2);
+			inset 0 0 20px var(--color-white-30),
+			inset 0 0 30px var(--color-red-500-20);
 		
-		/* Enhance the red glow on both symbols */
 		& .swastik-symbol,
 		& .om-symbol {
 			filter: 
@@ -551,7 +602,6 @@ video {
 	pointer-events: none;
 }
 
-/* Animated Particles Background - Enhanced with red accents */
 .entrance-particles {
 	position: absolute;
 	top: 0;
@@ -559,11 +609,11 @@ video {
 	width: 100%;
 	height: 100%;
 	background-image: 
-		radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
-		radial-gradient(2px 2px at 40px 70px, rgba(220, 38, 38, 0.2), transparent),
-		radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.1), transparent),
-		radial-gradient(1px 1px at 130px 80px, rgba(185, 28, 28, 0.15), transparent),
-		radial-gradient(2px 2px at 160px 30px, rgba(255, 87, 87, 0.1), transparent);
+		radial-gradient(2px 2px at 20px 30px, var(--color-white-10), transparent),
+		radial-gradient(2px 2px at 40px 70px, var(--color-red-500-20), transparent),
+		radial-gradient(1px 1px at 90px 40px, var(--color-white-10), transparent),
+		radial-gradient(1px 1px at 130px 80px, var(--color-red-600-15), transparent),
+		radial-gradient(2px 2px at 160px 30px, var(--color-red-300), transparent);
 	background-repeat: repeat;
 	background-size: 200px 200px;
 	animation: particleFloat 20s linear infinite;
@@ -696,7 +746,7 @@ video {
 			0 0 50px var(--color-button-glow),
 			0 0 75px var(--color-button-red-primary),
 			0 0 100px var(--color-button-red-secondary),
-			inset 0 0 25px rgba(255, 255, 255, 0.15);
+			inset 0 0 25px var(--color-white-15);
 	}
 }
 
@@ -720,21 +770,20 @@ video {
 	}
 }
 
-/* Red Swastik glow animation - complements red logo */
 @keyframes redSwastikGlow {
 	0% {
 		filter: brightness(1) saturate(1);
 		box-shadow: 
 			0 0 20px var(--color-button-red-secondary),
 			0 0 40px transparent,
-			inset 0 0 15px rgba(220, 38, 38, 0.1);
+			inset 0 0 15px var(--color-red-500-10);
 	}
 	100% {
 		filter: brightness(1.15) saturate(1.2);
 		box-shadow: 
 			0 0 30px var(--color-button-red-primary),
 			0 0 60px var(--color-button-red-accent),
-			inset 0 0 20px rgba(220, 38, 38, 0.2);
+			inset 0 0 20px var(--color-red-500-20);
 	}
 }
 
@@ -776,9 +825,8 @@ video {
 	}
 	100% {
 		box-shadow: 
-			0 0 20px rgba(255, 255, 255, 0.15),
-			0 0 40px rgba(240, 103, 17, 0.1),
-			0 0 60px rgba(255, 193, 7, 0.05),
-			inset 0 0 25px rgba(255, 255, 255, 0.08);
+			0 0 20px var(--color-white-15),
+			0 0 40px var(--color-white-20),
+			inset 0 0 25px var(--color-white-08);
 	}
 }
