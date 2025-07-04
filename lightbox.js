@@ -85,13 +85,13 @@ class Lightbox {
 					</div>
 					
 					<!-- Swipe Indicators for Mobile -->
-					<div class="lightbox-swipe-indicator left">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<div class="lightbox-swipe-arrow left" aria-hidden="true">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
 							<polyline points="15,18 9,12 15,6"></polyline>
 						</svg>
 					</div>
-					<div class="lightbox-swipe-indicator right">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<div class="lightbox-swipe-arrow right" aria-hidden="true">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
 							<polyline points="9,18 15,12 9,6"></polyline>
 						</svg>
 					</div>
@@ -115,6 +115,7 @@ class Lightbox {
 		this.counter = this.lightboxElement.querySelector('.lightbox-counter');
 		this.loader = this.lightboxElement.querySelector('.lightbox-loader');
 		this.backdrop = this.lightboxElement.querySelector('.lightbox-backdrop');
+		this.swipeArrows = this.lightboxElement.querySelectorAll('.lightbox-swipe-arrow');
 	}
 
 	/**
@@ -395,7 +396,30 @@ class Lightbox {
 		// Add entrance animation
 		requestAnimationFrame(() => {
 			this.lightboxElement.classList.add('show');
+			// Show swipe arrows temporarily on mobile
+			this.showSwipeArrowsTemporarily();
 		});
+	}
+
+	/**
+	 * Show swipe arrows temporarily for user guidance
+	 */
+	showSwipeArrowsTemporarily() {
+		if (!this.isMobile || this.images.length <= 1) return;
+		
+		// Show arrows after a short delay
+		setTimeout(() => {
+			this.swipeArrows.forEach(arrow => {
+				arrow.classList.add('visible');
+			});
+			
+			// Hide arrows after 3 seconds
+			setTimeout(() => {
+				this.swipeArrows.forEach(arrow => {
+					arrow.classList.remove('visible');
+				});
+			}, 3000);
+		}, 500);
 	}
 
 	/**

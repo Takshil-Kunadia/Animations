@@ -395,74 +395,53 @@
 	}
 }
 
-/* Swipe Indicators for Mobile */
-.lightbox-swipe-indicator {
+/* Swipe Arrow Indicators for Mobile */
+.lightbox-swipe-arrow {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	width: 60px;
-	height: 60px;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 50%;
 	display: none;
 	align-items: center;
 	justify-content: center;
-	backdrop-filter: blur(10px);
-	border: 1px solid rgba(255, 255, 255, 0.2);
 	pointer-events: none;
 	z-index: 5;
 	opacity: 0;
-	transition: opacity 0.3s ease;
+	transition: opacity 0.4s ease;
 }
 
-.lightbox-swipe-indicator.left {
-	left: 20px;
-	animation: swipeHintLeft 2s ease-in-out infinite;
+.lightbox-swipe-arrow.left {
+	left: 30px;
 }
 
-.lightbox-swipe-indicator.right {
-	right: 20px;
-	animation: swipeHintRight 2s ease-in-out infinite;
+.lightbox-swipe-arrow.right {
+	right: 30px;
 }
 
-.lightbox-swipe-indicator svg {
-	width: 24px;
-	height: 24px;
-	color: rgba(255, 255, 255, 0.8);
+.lightbox-swipe-arrow svg {
+	filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+	color: rgba(255, 255, 255, 0.9);
 }
 
-/* Show swipe indicators on mobile when lightbox is open */
+.lightbox-swipe-arrow.visible {
+	opacity: 1;
+	animation: swipeArrowPulse 0.8s ease-in-out infinite alternate;
+}
+
+/* Show swipe arrows on mobile devices only */
 @media (max-width: 768px) and (hover: none) {
-	.lightbox.show .lightbox-swipe-indicator {
+	.lightbox-swipe-arrow {
 		display: flex;
-		opacity: 0.6;
-		animation-delay: 1s;
-	}
-	
-	.lightbox.show .lightbox-swipe-indicator:hover {
-		opacity: 1;
 	}
 }
 
-/* Swipe hint animations */
-@keyframes swipeHintLeft {
-	0%, 100% {
-		transform: translateY(-50%) translateX(0);
-		opacity: 0.6;
+/* Enhanced arrow pulse animation */
+@keyframes swipeArrowPulse {
+	0% {
+		opacity: 0.7;
+		transform: translateY(-50%) scale(1);
 	}
-	50% {
-		transform: translateY(-50%) translateX(-10px);
+	100% {
 		opacity: 1;
-	}
-}
-
-@keyframes swipeHintRight {
-	0%, 100% {
-		transform: translateY(-50%) translateX(0);
-		opacity: 0.6;
-	}
-	50% {
-		transform: translateY(-50%) translateX(10px);
-		opacity: 1;
+		transform: translateY(-50%) scale(1.1);
 	}
 }
