@@ -428,41 +428,6 @@
 	}
 }
 
-/* Mobile Touch Styles - Card Expansion */
-.mobile-expanded {
-	& > .big-card:nth-child(2) {
-		transform: translate(-85%, 16%) rotate(-24deg) scaleX(-1) !important;
-	}
-
-	& > .big-card:nth-child(4) {
-		transform: translate(-30%, 8%) rotate(-8deg) !important;
-	}
-
-	& > .big-card:nth-child(6) {
-		transform: translate(30%, 8%) rotate(8deg) !important;
-	}
-
-	& > .big-card:nth-child(8) {
-		transform: translate(85%, 16%) rotate(24deg) !important;
-	}
-
-	& > .little-card:nth-child(1) {
-		transform: translate(280%, -140%) rotate(-15deg) !important;
-	}
-
-	& > .little-card:nth-child(3) {
-		transform: translate(280%, 140%) rotate(15deg) !important;
-	}
-
-	& > .little-card:nth-child(5) {
-		transform: translate(-280%, -140%) rotate(15deg) !important;
-	}
-
-	& > .little-card:nth-child(7) {
-		transform: translate(-280%, 140%) rotate(-15deg) !important;
-	}
-}
-
 /* Ensure mobile transitions are smooth */
 @media (max-width: 768px) {
 	.card {

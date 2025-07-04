@@ -289,7 +289,7 @@ video {
 	box-shadow: var(--shadow-card-enhanced);
 }
 
-.card-group:hover {
+.card-group:hover, .mobile-expanded {
 	& > .big-card:nth-child(2) {
 		transform: translate(-85%, 16%) rotate(-24deg) scaleX(-1);
 	}
