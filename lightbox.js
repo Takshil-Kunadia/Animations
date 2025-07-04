@@ -138,8 +138,7 @@ class Lightbox {
 			card.style.cursor = 'pointer';
 
 			if (this.isMobile) {
-				// Mobile: First touch expands, second touch opens lightbox
-				card.addEventListener('touchstart', (e) => {
+				card.addEventListener('click', (e) => {
 					e.preventDefault();
 					this.handleMobileTouch(card, index, cardGroup);
 				});
