@@ -44,6 +44,7 @@
 			const entranceScreen = document.getElementById('entrance-screen');
 			const mainContent = document.getElementById('main-content');
 			const video = document.getElementById('bg-video');
+			const title = document.getElementById('animation-title');
 			
 			// Add exit animation to entrance screen
 			entranceScreen.classList.add('exit-animation');
@@ -51,16 +52,26 @@
 			// After animation completes, switch to main content
 			setTimeout(() => {
 				entranceScreen.style.display = 'none';
+				
+				// Show and animate the title
+				title.classList.add('show');
+				
+				// Show and animate the video
+				video.classList.add('show');
+				
+				// Show main content with animation
 				mainContent.classList.remove('hidden');
 				mainContent.classList.add('enter-animation');
 				
-				// Start video with audio
-				video.muted = false;
-				video.play().catch(e => {
-					// Fallback: if unmuted autoplay fails, play muted
-					video.muted = true;
-					video.play();
-				});
+				// Start video with audio after a brief delay
+				setTimeout(() => {
+					video.muted = false;
+					video.play().catch(e => {
+						// Fallback: if unmuted autoplay fails, play muted
+						video.muted = true;
+						video.play();
+					});
+				}, 500);
 			}, 1000);
 		});
 	</script>

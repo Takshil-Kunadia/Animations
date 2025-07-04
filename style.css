@@ -42,6 +42,14 @@ video.show {
 	color: #fff;
 	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 	margin: 0px;
+	opacity: 0;
+	transform: translateY(-20px);
+	transition: all 1.5s ease;
+}
+
+#animation-title.show {
+	opacity: 1;
+	transform: translateY(0);
 	animation: animated-title 2s ease-in-out infinite alternate;
 }
 
