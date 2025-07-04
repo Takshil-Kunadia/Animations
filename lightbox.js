@@ -143,12 +143,6 @@ class Lightbox {
 					e.preventDefault();
 					this.handleMobileTouch(card, index, cardGroup);
 				});
-
-				// Also handle click for mobile browsers that convert touch to click
-				card.addEventListener('click', (e) => {
-					e.preventDefault();
-					this.handleMobileTouch(card, index, cardGroup);
-				});
 			} else {
 				// Desktop: Single click opens lightbox
 				card.addEventListener('click', (e) => {
