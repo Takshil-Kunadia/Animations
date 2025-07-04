@@ -354,14 +354,6 @@
 	}
 }
 
-/* Prevent hover effects on mobile */
-@media (hover: none) and (pointer: coarse) {
-	.card-group:hover > .big-card,
-	.card-group:hover > .little-card {
-		transform: none !important;
-	}
-}
-
 /* Focus and Accessibility */
 .lightbox-close:focus,
 .lightbox-prev:focus,

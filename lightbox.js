@@ -17,7 +17,6 @@ class Lightbox {
 
 		// Mobile touch handling
 		this.isMobile = this.detectMobile();
-		console.log('Is mobile:', this.isMobile);
 		this.cardStates = new Map(); // Track hover/expanded state for each card
 
 		// Swipe handling for lightbox
@@ -103,7 +102,6 @@ class Lightbox {
 			</div>
 		`;
 
-		console.log('Lightbox template created successfully');
 		document.body.insertAdjacentHTML('beforeend', htmlContent);
 
 		// Cache DOM elements
@@ -162,7 +160,7 @@ class Lightbox {
 
 			if (this.isMobile) {
 				// Mobile: First touch expands, second touch opens lightbox
-				card.addEventListener('click', (e) => {
+				card.addEventListener('touchstart', (e) => {
 					e.preventDefault();
 					this.handleMobileTouch(card, index, cardGroup);
 				});
@@ -174,6 +172,16 @@ class Lightbox {
 				});
 			}
 		});
+
+		// Close expanded cards when clicking outside on mobile
+		if (this.isMobile) {
+			document.addEventListener('touchstart', (e) => {
+				const cardGroup = document.querySelector('.card-group');
+				if (cardGroup && !cardGroup.contains(e.target)) {
+					this.collapseAllCards();
+				}
+			});
+		}
 
 		// Lightbox controls
 		this.closeButton.addEventListener('click', () => this.closeLightbox());
@@ -284,6 +292,13 @@ class Lightbox {
 
 			// Add visual feedback
 			card.style.zIndex = '10';
+
+			// Auto-collapse after 4 seconds if no second touch
+			setTimeout(() => {
+				if (this.cardStates.get(cardId) && !this.isOpen) {
+					this.collapseCard(cardId, cardGroup);
+				}
+			}, 4000);
 		} else if (isExpanded) {
 			// Second touch on same card: Open lightbox
 			this.openLightbox(index);
