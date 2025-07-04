@@ -14,7 +14,7 @@ class Lightbox {
 		this.nextButton = null;
 		this.closeButton = null;
 		this.counter = null;
-		
+
 		// Mobile touch handling
 		this.isMobile = this.detectMobile();
 		this.cardStates = new Map(); // Track hover/expanded state for each card
@@ -40,7 +40,7 @@ class Lightbox {
 		const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 		const isSmallScreen = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
 		const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-		
+
 		return hasTouch || isSmallScreen || isMobileUserAgent;
 	}
 
@@ -133,17 +133,17 @@ class Lightbox {
 		// Add click/touch listeners to all cards
 		const cards = document.querySelectorAll('.card');
 		const cardGroup = document.querySelector('.card-group');
-		
+
 		cards.forEach((card, index) => {
 			card.style.cursor = 'pointer';
-			
+
 			if (this.isMobile) {
 				// Mobile: First touch expands, second touch opens lightbox
 				card.addEventListener('touchstart', (e) => {
 					e.preventDefault();
 					this.handleMobileTouch(card, index, cardGroup);
 				});
-				
+
 				// Also handle click for mobile browsers that convert touch to click
 				card.addEventListener('click', (e) => {
 					e.preventDefault();
@@ -187,7 +187,7 @@ class Lightbox {
 	handleMobileTouch(card, index, cardGroup) {
 		const cardId = `card-${index}`;
 		const isExpanded = this.cardStates.get(cardId) || false;
-		
+
 		// Check if any card is currently expanded
 		const anyCardExpanded = Array.from(this.cardStates.values()).some(state => state);
 
@@ -195,10 +195,10 @@ class Lightbox {
 			// First touch: Expand the card group (simulate hover)
 			cardGroup.classList.add('mobile-expanded');
 			this.cardStates.set(cardId, true);
-			
+
 			// Add visual feedback
 			card.style.zIndex = '10';
-			
+
 			// Auto-collapse after 4 seconds if no second touch
 			setTimeout(() => {
 				if (this.cardStates.get(cardId) && !this.isOpen) {
@@ -226,7 +226,7 @@ class Lightbox {
 	collapseCard(cardId, cardGroup) {
 		cardGroup.classList.remove('mobile-expanded');
 		this.cardStates.set(cardId, false);
-		
+
 		// Reset z-index for all cards
 		const cards = document.querySelectorAll('.card');
 		cards.forEach(card => {
@@ -242,7 +242,7 @@ class Lightbox {
 		if (cardGroup) {
 			cardGroup.classList.remove('mobile-expanded');
 		}
-		
+
 		// Reset all card states and z-index
 		this.cardStates.clear();
 		const cards = document.querySelectorAll('.card');
