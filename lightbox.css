@@ -354,6 +354,18 @@
 	}
 }
 
+/* Hide navigation buttons on mobile devices with touch */
+@media (max-width: 768px) and (hover: none) {
+	.lightbox-nav {
+		display: none;
+	}
+	
+	.lightbox-prev,
+	.lightbox-next {
+		display: none !important;
+	}
+}
+
 /* Focus and Accessibility */
 .lightbox-close:focus,
 .lightbox-prev:focus,

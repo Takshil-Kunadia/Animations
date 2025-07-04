@@ -515,10 +515,12 @@ class Lightbox {
 	 * Update navigation button visibility
 	 */
 	updateNavigation() {
-		if (this.images.length <= 1) {
+		if (this.images.length <= 1 || this.isMobile) {
+			// Hide buttons if there's only one image or on mobile devices
 			this.prevButton.style.display = 'none';
 			this.nextButton.style.display = 'none';
 		} else {
+			// Show buttons on desktop with multiple images
 			this.prevButton.style.display = 'flex';
 			this.nextButton.style.display = 'flex';
 		}
