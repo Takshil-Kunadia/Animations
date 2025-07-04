@@ -26,11 +26,10 @@ class Lightbox {
 	 * Initialize the lightbox
 	 */
 	init() {
-		this.loadLightboxHTML().then(() => {
-			this.collectImages();
-			this.bindEvents();
-			this.bindKeyboardEvents();
-		});
+		this.loadLightboxHTML();
+		this.collectImages();
+		this.bindEvents();
+		this.bindKeyboardEvents();
 	}
 
 	/**
@@ -46,35 +45,10 @@ class Lightbox {
 	}
 
 	/**
-	 * Load lightbox HTML from template file
+	 * Create and inject lightbox HTML
 	 */
-	async loadLightboxHTML() {
-		try {
-			const response = await fetch('./lightbox-template.html');
-			const htmlContent = await response.text();
-			document.body.insertAdjacentHTML('beforeend', htmlContent);
-
-			// Cache DOM elements
-			this.lightboxElement = document.getElementById('lightbox');
-			this.imageElement = this.lightboxElement.querySelector('.lightbox-image');
-			this.prevButton = this.lightboxElement.querySelector('.lightbox-prev');
-			this.nextButton = this.lightboxElement.querySelector('.lightbox-next');
-			this.closeButton = this.lightboxElement.querySelector('.lightbox-close');
-			this.counter = this.lightboxElement.querySelector('.lightbox-counter');
-			this.loader = this.lightboxElement.querySelector('.lightbox-loader');
-			this.backdrop = this.lightboxElement.querySelector('.lightbox-backdrop');
-		} catch (error) {
-			console.error('Failed to load lightbox template:', error);
-			// Fallback to creating HTML directly
-			this.createLightboxHTML();
-		}
-	}
-
-	/**
-	 * Create the lightbox HTML structure
-	 */
-	createLightboxHTML() {
-		const lightboxHTML = `
+	loadLightboxHTML() {
+		const htmlContent = `
 			<div id="lightbox" class="lightbox">
 				<div class="lightbox-backdrop"></div>
 				<div class="lightbox-content">
@@ -107,7 +81,8 @@ class Lightbox {
 			</div>
 		`;
 
-		document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+		console.log('Lightbox template created successfully');
+		document.body.insertAdjacentHTML('beforeend', htmlContent);
 
 		// Cache DOM elements
 		this.lightboxElement = document.getElementById('lightbox');
