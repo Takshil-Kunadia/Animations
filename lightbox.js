@@ -41,6 +41,20 @@ class Lightbox {
 	}
 
 	/**
+	 * Convert English numbers to Devanagari numerals
+	 * @param {number|string} number - The number to convert
+	 * @returns {string} - The number in Devanagari numerals
+	 */
+	toDevanagriNumerals(number) {
+		const hindiDigits = {
+			'0': '०', '1': '१', '2': '२', '3': '३', '4': '४',
+			'5': '५', '6': '६', '7': '७', '8': '८', '9': '९'
+		};
+		
+		return number.toString().replace(/[0-9]/g, (digit) => hindiDigits[digit]);
+	}
+
+	/**
 	 * Detect if the device is mobile
 	 */
 	detectMobile() {
@@ -98,7 +112,7 @@ class Lightbox {
 					</div>
 					
 					<div class="lightbox-counter">
-						<span class="current-image">1</span> / <span class="total-images">8</span>
+						<span class="current-image">१</span> / <span class="total-images">८</span>
 					</div>
 				</div>
 			</div>
@@ -145,7 +159,7 @@ class Lightbox {
 		// Update total images counter
 		const totalImagesElement = this.lightboxElement.querySelector('.total-images');
 		if (totalImagesElement) {
-			totalImagesElement.textContent = this.images.length;
+			totalImagesElement.textContent = this.toDevanagriNumerals(this.images.length);
 		}
 	}
 
@@ -509,7 +523,8 @@ class Lightbox {
 	updateCounter() {
 		const currentImageElement = this.lightboxElement.querySelector('.current-image');
 		if (currentImageElement) {
-			currentImageElement.textContent = this.currentImageIndex + 1;
+			const currentNumber = this.currentImageIndex + 1;
+			currentImageElement.textContent = this.toDevanagriNumerals(currentNumber);
 		}
 	}
 
