@@ -182,10 +182,7 @@ class Lightbox {
 		const cardId = `card-${index}`;
 		const isExpanded = this.cardStates.get(cardId) || false;
 
-		// Check if any card is currently expanded
-		const anyCardExpanded = Array.from(this.cardStates.values()).some(state => state);
-
-		if (!isExpanded && !anyCardExpanded) {
+		if (!isExpanded) {
 			// First touch: Expand the card group (simulate hover)
 			cardGroup.classList.add('mobile-expanded');
 			this.cardStates.set(cardId, true);
