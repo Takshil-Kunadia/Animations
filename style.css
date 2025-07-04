@@ -6,22 +6,22 @@
 	--color-accent-alt: rgba(255, 193, 7, 0.4);
 	--color-accent-secondary: rgba(255, 152, 0, 0.15);
 	--color-accent-tertiary: rgba(255, 87, 34, 0.1);
-	
+
 	/* Button specific colors */
 	--color-button-glow: rgba(255, 193, 7, 0.4);
 	--color-button-glow-hover: rgba(255, 193, 7, 0.6);
 	--color-button-glow-active: rgba(255, 193, 7, 0.8);
-	
+
 	/* Card glow colors */
 	--color-glow-primary: rgba(255, 255, 255, 0.1);
 	--color-glow-secondary: rgba(240, 103, 17, 0.05);
 	--color-glow-enhanced: rgba(255, 193, 7, 0.1);
-	
+
 	/* Backgrounds */
 	--bg-card: rgba(255, 255, 255, 0.1);
 	--bg-lightbox: rgba(255, 255, 255, 0.1);
 	--bg-backdrop: rgba(0, 0, 0, 0.9);
-	
+
 	/* Spacing */
 	--spacing-xs: 0.25rem;
 	--spacing-sm: 0.5rem;
@@ -29,14 +29,14 @@
 	--spacing-lg: 1.5rem;
 	--spacing-xl: 2rem;
 	--spacing-xxl: 3rem;
-	
+
 	/* Border radius */
 	--radius-sm: 1vmin;
 	--radius-md: 2vmin;
 	--radius-lg: 12px;
 	--radius-xl: 20px;
 	--radius-circle: 50%;
-	
+
 	/* Transitions */
 	--transition-fast: 150ms ease-out;
 	--transition-normal: 300ms ease;
@@ -143,7 +143,7 @@ body {
 		min-height: var(--vh-fallback);
 		min-height: var(--vh-webkit);
 	}
-	
+
 	/* Ensure main content is properly centered on mobile */
 	#main-content {
 		display: flex;
@@ -163,11 +163,11 @@ video {
 	z-index: var(--z-background);
 	opacity: 0;
 	transition: opacity var(--transition-entrance);
-	
+
 	&.show {
 		opacity: 1;
 	}
-	
+
 	@media screen and (max-width: 768px) {
 		max-width: 100%;
 		height: 100%;
@@ -187,7 +187,7 @@ video {
 	opacity: 0;
 	transform: translateY(-20px);
 	transition: all var(--transition-entrance);
-	
+
 	&.show {
 		opacity: 1;
 		transform: translateY(0);
@@ -293,31 +293,31 @@ video {
 	& > .big-card:nth-child(2) {
 		transform: translate(-85%, 16%) rotate(-24deg) scaleX(-1);
 	}
-	
+
 	& > .big-card:nth-child(4) {
 		transform: translate(-30%, 8%) rotate(-8deg);
 	}
-	
+
 	& > .big-card:nth-child(6) {
 		transform: translate(30%, 8%) rotate(8deg);
 	}
-	
+
 	& > .big-card:nth-child(8) {
 		transform: translate(85%, 16%) rotate(24deg);
 	}
-	
+
 	& > .little-card:nth-child(1) {
 		transform: translate(280%, -140%) rotate(-15deg);
 	}
-	
+
 	& > .little-card:nth-child(3) {
 		transform: translate(280%, 140%) rotate(15deg);
 	}
-	
+
 	& > .little-card:nth-child(5) {
 		transform: translate(-280%, -140%) rotate(15deg);
 	}
-	
+
 	& > .little-card:nth-child(7) {
 		transform: translate(-280%, 140%) rotate(-15deg);
 	}
@@ -355,7 +355,7 @@ video {
 	/* Safari specific fixes */
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
-	
+
 	&.exit-animation {
 		animation: entranceExit 1s ease-in forwards;
 	}
@@ -403,7 +403,7 @@ video {
 	transition: all var(--transition-button);
 	backdrop-filter: blur(20px);
 	box-shadow: var(--shadow-button-base);
-	
+
 	/* Animated background gradient */
 	background: radial-gradient(
 		circle at center,
@@ -412,12 +412,12 @@ video {
 		var(--color-accent-tertiary) 60%,
 		transparent 80%
 	);
-	
+
 	/* Apply continuous animations */
 	animation: 
 		glowPulse 3s ease-in-out infinite,
 		buttonFloat 4s ease-in-out infinite;
-	
+
 	& img {
 		width: var(--button-icon-size);
 		height: var(--button-icon-size);
@@ -430,11 +430,11 @@ video {
 		z-index: 2;
 		animation: omRotate 20s linear infinite;
 	}
-	
+
 	&:hover {
 		transform: translateY(-5px) scale(1.05);
 		box-shadow: var(--shadow-button-hover);
-		
+
 		/* Enhanced background on hover */
 		background: radial-gradient(
 			circle at center,
@@ -444,7 +444,7 @@ video {
 			rgba(255, 193, 7, 0.1) 80%,
 			transparent 100%
 		);
-		
+
 		& img {
 			transform: scale(1.1) rotate(5deg);
 			filter: 
@@ -453,7 +453,7 @@ video {
 				drop-shadow(0 0 45px var(--color-button-glow))
 				brightness(1.2);
 		}
-		
+
 		& .button-ripple {
 			width: 200px;
 			height: 200px;
@@ -465,10 +465,10 @@ video {
 			);
 		}
 	}
-	
+
 	&:active {
 		transform: translateY(-2px) scale(0.98);
-		
+
 		/* Pulse effect on click */
 		box-shadow: 
 			0 0 40px var(--color-button-glow-active),
@@ -597,7 +597,7 @@ video {
 	.entrance-title {
 		font-size: clamp(2rem, 6vw, 4rem);
 	}
-	
+
 	.entrance-subtitle {
 		font-size: clamp(0.8rem, 1.5vw, 1rem);
 		margin: 0 0 var(--spacing-xl) 0;
